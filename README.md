@@ -1,12 +1,12 @@
-# 🕌 Masjid Finance
+# 🕌 Nurul Iman Website
 
-Aplikasi web yang dibuat untuk membantu pengurus masjid dalam memanajemen keuangan secara efisien dan transparan. Proyek ini pertama kali diimplementasikan untuk keuangan Masjid SMKN 2 Kota Bekasi.
+Aplikasi web yang dibuat untuk membantu pengurus masjid dalam memanajemen keuangan secara efisien dan transparan. Proyek ini pertama kali diimplementasikan.
 
 ---
 
 ## 📌 Deskripsi
 
-Website **Masjid Finance** bertujuan untuk:
+Website **Nurul Iman** bertujuan untuk:
 
 - Mempermudah pencatatan pemasukan dan pengeluaran masjid
 - Menyediakan visualisasi keuangan berupa grafik dan tabel
@@ -45,8 +45,8 @@ Website **Masjid Finance** bertujuan untuk:
 ### 1️⃣ Clone Repository
 
 ```bash
-git clone https://github.com/novaka-dev/masjid-finance.git
-cd masjid-finance
+git clone https://github.com/nuruliman
+cd
 ```
 
 ### 2️⃣ Install Dependencies
@@ -113,17 +113,18 @@ Kontribusi sangat terbuka! Berikut langkah untuk berkontribusi:
 
 Website ini dikembangkan oleh:
 
-- **Novaka Dev** – [GitHub](https://github.com/novaka-dev)
+- **MDH.Dev** – [GitHub](https://github.com/mdwikihermansyah)
 
 ---
 
 ## 📄 Lisensi
 
-Open Source - Vaka Ganteng 🙏
+Open Source
 
 ---
 
 ## ⭐️ Jangan Lupa
 
 Jangan lupa kasih ⭐️ di GitHub ya! walaweee
+
 # nuruliman
