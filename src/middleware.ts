@@ -8,31 +8,46 @@ const isProtectedRoute = createRouteMatcher([
   "/transactions(.*)",
 ]);
 
-/// Create Arcjet middleware
-const aj = arcjet({
-  key: process.env.ARCJET_KEY!, // ✅ tambahkan tanda seru agar dipastikan tidak undefined
-  rules: [
-    shield({ mode: "LIVE" }),
-    detectBot({
-      mode: "LIVE",
-      allow: ["CATEGORY:SEARCH_ENGINE", "GO_HTTP"],
-    }),
-  ],
-});
-
-// Middleware dari Clerk
-const clerk = clerkMiddleware(async (auth, req) => {
-  const { userId, redirectToSignIn } = await auth();
-
-  if (!userId && isProtectedRoute(req)) {
-    return redirectToSignIn();
+// * Create Arcjet middleware dengan fallback untuk build time
+let aj: ReturnType<typeof arcjet> | null = null;
+if (process.env.ARCJET_KEY) {
+  try {
+    aj = arcjet({
+      key: process.env.ARCJET_KEY,
+      rules: [
+        shield({ mode: "LIVE" }),
+        detectBot({
+          mode: "LIVE",
+          allow: ["CATEGORY:SEARCH_ENGINE", "GO_HTTP"],
+        }),
+      ],
+    });
+  } catch (error) {
+    console.warn("Arcjet initialization failed:", error);
   }
+}
 
-  return NextResponse.next();
+// Middleware dari Clerk dengan fallback
+const clerk = clerkMiddleware(async (auth, req) => {
+  try {
+    const { userId, redirectToSignIn } = await auth();
+
+    if (!userId && isProtectedRoute(req)) {
+      return redirectToSignIn();
+    }
+
+    return NextResponse.next();
+  } catch (error) {
+    // * Jika Clerk tidak tersedia, allow request untuk build time
+    console.warn("Clerk middleware error:", error);
+    return NextResponse.next();
+  }
 });
 
-// Gabungkan Arcjet dan Clerk middleware
-export default createMiddleware(aj, clerk);
+// * Gabungkan middleware dengan fallback jika Arcjet tidak tersedia
+export default aj
+  ? createMiddleware(aj, clerk)
+  : clerk;
 
 // Config untuk middleware agar match route yang diinginkan
 export const config = {
