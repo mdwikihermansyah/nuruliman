@@ -11,6 +11,9 @@ import {
   Send,
 } from "lucide-react";
 
+// * Force dynamic rendering untuk menghindari error Clerk saat build
+export const dynamic = "force-dynamic";
+
 export default function KontakPage() {
   return (
     <div className="pt-32 pb-20 min-h-screen bg-gradient-to-b from-yellow-50 via-gray-50 to-white">

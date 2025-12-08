@@ -4,14 +4,12 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 
 const HeroSection = () => {
-  const [scrollY, setScrollY] = useState(0);
   const [blurAmount, setBlurAmount] = useState(0);
   const [overlayOpacity, setOverlayOpacity] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      setScrollY(currentScrollY);
 
       // * Menghitung blur amount berdasarkan scroll position
       // * Blur mulai muncul setelah scroll 50px dan maksimal di 300px

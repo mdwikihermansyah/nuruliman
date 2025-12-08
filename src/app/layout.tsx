@@ -14,13 +14,29 @@ export const metadata: Metadata = {
   description: "Finance Platform Masjid Al-Kautsar SMKN 2 Kota Bekasi",
 };
 
+// * Wrapper untuk ClerkProvider dengan fallback untuk build time
+function ClerkProviderWrapper({ children }: { children: React.ReactNode }) {
+  const clerkPublishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+
+  // * Jika tidak ada publishableKey, render tanpa ClerkProvider (untuk build time)
+  if (!clerkPublishableKey) {
+    return <>{children}</>;
+  }
+
+  return (
+    <ClerkProvider publishableKey={clerkPublishableKey}>
+      {children}
+    </ClerkProvider>
+  );
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProviderWrapper>
       <html lang="en">
         <body className={`${inter.className} antialiased`}>
           {/* Header */}
@@ -31,6 +47,6 @@ export default function RootLayout({
           <Footer />
         </body>
       </html>
-    </ClerkProvider>
+    </ClerkProviderWrapper>
   );
 }

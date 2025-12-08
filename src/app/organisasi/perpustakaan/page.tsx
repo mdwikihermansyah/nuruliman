@@ -3,6 +3,9 @@ import { Button } from "@/components/ui/button";
 import { BookOpen, Clock, Users, Search, ArrowRight } from "lucide-react";
 import Image from "next/image";
 
+// * Force dynamic rendering untuk menghindari error Clerk saat build
+export const dynamic = "force-dynamic";
+
 export default function PerpustakaanPage() {
   return (
     <div className="pt-0 pb-20 min-h-screen bg-gray-50">

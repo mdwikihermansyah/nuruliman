@@ -3,7 +3,15 @@ import { db } from "./prisma";
 import { Role } from "@prisma/client";
 
 export const checkUser = async () => {
-  const { userId } = await auth();
+  // * Handle kasus ketika Clerk tidak tersedia (misalnya saat build tanpa env var)
+  let userId: string | null = null;
+  try {
+    const authResult = await auth();
+    userId = authResult.userId;
+  } catch {
+    // * Jika Clerk tidak tersedia, return null (user tidak login)
+    return null;
+  }
 
   if (!userId) return null;
 

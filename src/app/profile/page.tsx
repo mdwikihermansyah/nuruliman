@@ -71,9 +71,9 @@ export default function ProfilePage() {
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600">
-                  Tempat menginap tamu masjid syar'i di kompleks Masjid Nurul
-                  Iman dengan fasilitas yang cukup memadai, kamu bisa menikmati
-                  pemandangan jogja dari lantai 3 Masjid Nurul Iman.
+                  Tempat menginap tamu masjid syar&apos;i di kompleks Masjid
+                  Nurul Iman dengan fasilitas yang cukup memadai, kamu bisa
+                  menikmati pemandangan jogja dari lantai 3 Masjid Nurul Iman.
                 </p>
               </CardContent>
             </Card>
