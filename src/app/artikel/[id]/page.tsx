@@ -5,14 +5,17 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 // * Mock data - nanti bisa diganti dengan data dari database
-const articles: Record<string, {
-  id: number;
-  title: string;
-  content: string;
-  author: string;
-  date: string;
-  category: string;
-}> = {
+const articles: Record<
+  string,
+  {
+    id: number;
+    title: string;
+    content: string;
+    author: string;
+    date: string;
+    category: string;
+  }
+> = {
   "1": {
     id: 1,
     title: "Manajemen Masjid Zaman Rasulullah",
@@ -36,14 +39,60 @@ const articles: Record<string, {
     date: "15 Desember 2024",
     category: "Manajemen",
   },
-  // * Tambahkan artikel lain sesuai kebutuhan
+  "2": {
+    id: 2,
+    title: "Pentingnya Transparansi Keuangan Masjid",
+    content: `
+      <p class="mb-4">Transparansi keuangan masjid adalah kunci untuk membangun kepercayaan jamaah dan memastikan amanah tersalurkan dengan baik.</p>
+      
+      <p class="mb-4">Beberapa hal yang perlu dilakukan untuk meningkatkan transparansi keuangan masjid:</p>
+      
+      <h3 class="text-2xl font-bold mb-3 mt-6">1. Penyusunan Laporan Keuangan</h3>
+      <p class="mb-4">Laporan keuangan harus disusun secara teratur dan disertai dengan catatan penjelasan yang jelas untuk memudahkan pemahaman.</p>
+      <h3 class="text-2xl font-bold mb-3 mt-6">2. Penyajian Laporan Keuangan</h3>
+      <p class="mb-4">Laporan keuangan harus disajikan dengan bahasa yang mudah dipahami oleh semua pihak.</p>
+      <h3 class="text-2xl font-bold mb-3 mt-6">3. Penyajian Laporan Keuangan</h3>
+      <p class="mb-4">Laporan keuangan harus disajikan dengan bahasa yang mudah dipahami oleh semua pihak.</p>
+      <h3 class="text-2xl font-bold mb-3 mt-6">4. Penyajian Laporan Keuangan</h3>
+      <p class="mb-4">Laporan keuangan harus disajikan dengan bahasa yang mudah dipahami oleh semua pihak.</p>
+      <h3 class="text-2xl font-bold mb-3 mt-6">5. Penyajian Laporan Keuangan</h3>
+      <p class="mb-4">Laporan keuangan harus disajikan dengan bahasa yang mudah dipahami oleh semua pihak.</p>
+      <h3 class="text-2xl font-bold mb-3 mt-6">6. Penyajian Laporan Keuangan</h3>
+      <p class="mb-4">Laporan keuangan harus disajikan dengan bahasa yang mudah dipahami oleh semua pihak.</p>
+      <h3 class="text-2xl font-bold mb-3 mt-6">7. Penyajian Laporan Keuangan</h3>
+      <p class="mb-4">Laporan keuangan harus disajikan dengan bahasa yang mudah dipahami oleh semua pihak.</p>
+      <h3 class="text-2xl font-bold mb-3 mt-6">8. Penyajian Laporan Keuangan</h3>
+      <p class="mb-4">Laporan keuangan harus disajikan dengan bahasa yang mudah dipahami oleh semua pihak.</p>
+      <h3 class="text-2xl font-bold mb-3 mt-6">9. Penyajian Laporan Keuangan</h3>
+      <p class="mb-4">Laporan keuangan harus disajikan dengan bahasa yang mudah dipahami oleh semua pihak.</p>
+      <h3 class="text-2xl font-bold mb-3 mt-6">10. Penyajian Laporan Keuangan</h3>
+      <p class="mb-4">Laporan keuangan harus disajikan dengan bahasa yang mudah dipahami oleh semua pihak.</p>
+      <h3 class="text-2xl font-bold mb-3 mt-6">11. Penyajian Laporan Keuangan</h3>
+      <p class="mb-4">Laporan keuangan harus disajikan dengan bahasa yang mudah dipahami oleh semua pihak.</p>
+      <h3 class="text-2xl font-bold mb-3 mt-6">12. Penyajian Laporan Keuangan</h3>
+      <p class="mb-4">Laporan keuangan harus disajikan dengan bahasa yang mudah dipahami oleh semua pihak.</p>
+    `,
+    author: "Ustadzah Fatimah",
+    date: "10 Desember 2024",
+    category: "Keuangan",
+  },
+  "7": {
+    id: 7,
+    title: "Sejarah Masjid Nurul Iman",
+    content: `
+      <p class="mb-4">Sejarah Masjid Nurul Iman, berawal dari sebuah mushola kecil di Cipedak, Jakarta Selatan, yang kini terus menebarkan manfaat luas bagi seluruh warga sekitar.</p>
+    `,
+    author: "Ketua DKM 2027 - Didi Suharjo",
+    date: "11 Desember 2025",
+    category: "Sejarah",
+  },
 };
 
-export default function ArtikelDetailPage({
-  params,
-}: {
+interface ArtikelDetailPageProps {
   params: { id: string };
-}) {
+}
+
+export default function ArtikelDetailPage({ params }: ArtikelDetailPageProps) {
   const article = articles[params.id];
 
   if (!article) {
@@ -115,4 +164,3 @@ export default function ArtikelDetailPage({
     </div>
   );
 }
-

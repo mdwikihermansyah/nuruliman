@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Calendar, User, ArrowRight } from "lucide-react";
@@ -8,7 +11,8 @@ const articles = [
   {
     id: 1,
     title: "Manajemen Masjid Zaman Rasulullah",
-    excerpt: "Pelajari bagaimana manajemen masjid yang diterapkan pada zaman Rasulullah SAW dan aplikasinya di zaman modern.",
+    excerpt:
+      "Pelajari bagaimana manajemen masjid yang diterapkan pada zaman Rasulullah SAW dan aplikasinya di zaman modern.",
     author: "Ustadz Ahmad",
     date: "15 Desember 2024",
     category: "Manajemen",
@@ -16,15 +20,17 @@ const articles = [
   {
     id: 2,
     title: "Pentingnya Transparansi Keuangan Masjid",
-    excerpt: "Transparansi keuangan masjid adalah kunci untuk membangun kepercayaan jamaah dan memastikan amanah tersalurkan dengan baik.",
+    excerpt:
+      "Transparansi keuangan masjid adalah kunci untuk membangun kepercayaan jamaah dan memastikan amanah tersalurkan dengan baik.",
     author: "Ustadzah Fatimah",
     date: "10 Desember 2024",
     category: "Keuangan",
   },
   {
     id: 3,
-    title: "Program Dakwah Masjid Jogokariyan",
-    excerpt: "Berbagai program dakwah yang telah dilaksanakan Masjid Jogokariyan untuk membangun ummat dan mensejahterakan masyarakat.",
+    title: "Program Dakwah Masjid Nurul Iman",
+    excerpt:
+      "Berbagai program dakwah yang telah dilaksanakan Masjid Jogokariyan untuk membangun ummat dan mensejahterakan masyarakat.",
     author: "Tim Dakwah",
     date: "5 Desember 2024",
     category: "Dakwah",
@@ -32,7 +38,8 @@ const articles = [
   {
     id: 4,
     title: "Kampoeng Ramadhan: Menjaga Tradisi, Membangun Ummat",
-    excerpt: "Kisah sukses program Kampoeng Ramadhan yang menjadi event tahunan Masjid Jogokariyan dengan berbagai kegiatan menarik.",
+    excerpt:
+      "Kisah sukses program Kampoeng Ramadhan yang menjadi event tahunan Masjid Nurul Iman dengan berbagai kegiatan menarik.",
     author: "Panitia Ramadhan",
     date: "1 Desember 2024",
     category: "Event",
@@ -40,7 +47,8 @@ const articles = [
   {
     id: 5,
     title: "ATM Beras: Inovasi Program Sosial Masjid",
-    excerpt: "Program ATM Beras sebagai salah satu inovasi Masjid Jogokariyan dalam membantu masyarakat yang membutuhkan.",
+    excerpt:
+      "Program ATM Beras sebagai salah satu inovasi Masjid Nurul Iman dalam membantu masyarakat yang membutuhkan.",
     author: "Tim Sosial",
     date: "25 November 2024",
     category: "Sosial",
@@ -48,14 +56,36 @@ const articles = [
   {
     id: 6,
     title: "Peran Masjid dalam Pemberdayaan Masyarakat",
-    excerpt: "Bagaimana masjid dapat menjadi pusat pemberdayaan masyarakat melalui berbagai program yang terstruktur dan berkelanjutan.",
+    excerpt:
+      "Bagaimana masjid dapat menjadi pusat pemberdayaan masyarakat melalui berbagai program yang terstruktur dan berkelanjutan.",
     author: "Ustadz Muhammad",
     date: "20 November 2024",
     category: "Pemberdayaan",
   },
+  {
+    id: 7,
+    title: "Sejarah Masjid Nurul Iman",
+    excerpt:
+      "Sejarah Masjid Nurul Iman, berawal dari sebuah mushola kecil di Cipedak, Jakarta Selatan, yang kini terus menebarkan manfaat luas bagi seluruh warga sekitar.",
+    author: "Ketua DKM 2027 - Didi Suharjo",
+    date: "11 Desember 2025",
+    category: "Sejarah",
+  },
 ];
 
 export default function ArtikelPage() {
+  const [visibleCount, setVisibleCount] = useState(6);
+
+  const visibleArticles = articles.filter(
+    (article) => article.id <= visibleCount
+  );
+
+  const hasMore = articles.some((article) => article.id > visibleCount);
+
+  const handleLoadMore = () => {
+    setVisibleCount((prev) => prev + 6);
+  };
+
   return (
     <div className="pt-32 pb-20 min-h-screen bg-gray-50">
       <div className="container mx-auto px-6">
@@ -65,15 +95,18 @@ export default function ArtikelPage() {
             Artikel
           </h1>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Kumpulan artikel dan tulisan tentang manajemen masjid, dakwah, dan berbagai 
-            program yang dilaksanakan Masjid Jogokariyan.
+            Kumpulan artikel dan tulisan tentang manajemen masjid, dakwah, dan
+            berbagai program yang dilaksanakan Masjid Nurul Iman.
           </p>
         </div>
 
         {/* Articles Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {articles.map((article) => (
-            <Card key={article.id} className="hover:shadow-lg transition-shadow flex flex-col">
+          {visibleArticles.map((article) => (
+            <Card
+              key={article.id}
+              className="hover:shadow-lg transition-shadow flex flex-col"
+            >
               <CardHeader>
                 <div className="mb-2">
                   <span className="inline-block px-3 py-1 bg-yellow-100 text-yellow-700 text-xs font-semibold rounded-full">
@@ -110,13 +143,14 @@ export default function ArtikelPage() {
         </div>
 
         {/* Load More Button */}
-        <div className="text-center mt-12">
-          <Button variant="outline" size="lg">
-            Muat Artikel Lainnya
-          </Button>
-        </div>
+        {hasMore && (
+          <div className="text-center mt-12">
+            <Button variant="outline" size="lg" onClick={handleLoadMore}>
+              Muat Artikel Lainnya
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );
 }
-
