@@ -1,4 +1,3 @@
-import arcjet, { createMiddleware, detectBot, shield } from "@arcjet/next";
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
@@ -8,27 +7,9 @@ const isProtectedRoute = createRouteMatcher([
   "/transactions(.*)",
 ]);
 
-// * Create Arcjet middleware dengan fallback untuk build time
-let aj: ReturnType<typeof arcjet> | null = null;
-if (process.env.ARCJET_KEY) {
-  try {
-    aj = arcjet({
-      key: process.env.ARCJET_KEY,
-      rules: [
-        shield({ mode: "LIVE" }),
-        detectBot({
-          mode: "LIVE",
-          allow: ["CATEGORY:SEARCH_ENGINE", "GO_HTTP"],
-        }),
-      ],
-    });
-  } catch (error) {
-    console.warn("Arcjet initialization failed:", error);
-  }
-}
-
-// Middleware dari Clerk dengan fallback
-const clerk = clerkMiddleware(async (auth, req) => {
+// * Middleware hanya menggunakan Clerk untuk mengurangi bundle size
+// * Arcjet akan di-handle di API routes jika diperlukan
+export default clerkMiddleware(async (auth, req) => {
   try {
     const { userId, redirectToSignIn } = await auth();
 
@@ -43,11 +24,6 @@ const clerk = clerkMiddleware(async (auth, req) => {
     return NextResponse.next();
   }
 });
-
-// * Gabungkan middleware dengan fallback jika Arcjet tidak tersedia
-export default aj
-  ? createMiddleware(aj, clerk)
-  : clerk;
 
 // Config untuk middleware agar match route yang diinginkan
 export const config = {
